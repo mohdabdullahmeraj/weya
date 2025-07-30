@@ -1,0 +1,48 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# dotenv environment files
+.env
+.env.*.local
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.sw?
+
+# Coverage and test output
+coverage/
+.nyc_output/
+
+# Build outputs
+dist/
+build/
+
+# MongoDB dump files (if any)
+dump/
+
+# Temporary files
+*.swp
+*.tmp
+*.bak
+
+# Optional: PM2 logs or ecosystem files
+*.log
+ecosystem.config.js
