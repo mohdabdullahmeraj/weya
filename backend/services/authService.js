@@ -7,7 +7,7 @@ class AuthService{
     }
 
     signup = async(userData) => {
-        const {name, email, password} = userData;
+        const {name, email, password, city} = userData;
         
         const existingUser = await this.userRepository.findUserByEmail(email)
         if(existingUser){
@@ -19,10 +19,16 @@ class AuthService{
         const newUser = await this.userRepository.createUser({
             name, 
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            city
         })
 
-        return newUser
+        const payload = { id: newUser._id, name: newUser.name };
+        const token = jwt.sign(payload, process.env.JWT_SECRET, {
+            expiresIn: '1h',
+        });
+
+        return { token, user: newUser };
     }
 
     login = async(userData) => {

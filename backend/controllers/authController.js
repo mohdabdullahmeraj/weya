@@ -9,11 +9,13 @@ const authService = new AuthService(new UserRepository())
 
 const signup = async(req, res) => {
     try{
-        const user = await authService.signup(req.body)
+        const { token, user } = await authService.signup(req.body)
         return res.status(StatusCodes.CREATED).json({
             success: true,
             message: 'Successfully signed up',
-            data: { id: user._id, name: user.name, email: user.email },
+            data: { 
+                token: token,
+                user: {id: user._id, name: user.name, email: user.email, city: user.city} },
             error: {},
         })
     }catch(err){
