@@ -21,7 +21,7 @@ const signup = async(req, res) => {
     }catch(err){
         return res
             .status(StatusCodes.BAD_REQUEST)
-            .json(errorResponse(ReasonPhrases.BAD_REQUEST, err));
+            .json(errorResponse(err.message, err));
     }
 }
 
@@ -40,7 +40,7 @@ const login = async(req, res) => {
     }catch(err){
         return res
             .status(StatusCodes.UNAUTHORIZED)
-            .json(errorResponse(ReasonPhrases.UNAUTHORIZED, err));
+            .json(errorResponse(err.message, err));
     }
 }
 

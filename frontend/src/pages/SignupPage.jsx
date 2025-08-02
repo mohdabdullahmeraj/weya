@@ -16,19 +16,32 @@ const SignupPage = () => {
         confirmPassword: '',
         city: '',
     })
+    
+    const [error, setError] = useState('')
+
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();  
 
     const handleChange = (e) => {
+
+        if (error) {
+          setError('');
+        }
+
         setFormData({
             ...formData,
             [e.target.id]: e.target.value,
         })
     }
 
-    const { login } = useContext(AuthContext);
-    const navigate = useNavigate();  
 
     const handleSubmit = async(e) => {
         e.preventDefault()
+
+        if (!formData.name|| !formData.email || !formData.password || !formData.confirmPassword || !formData.city) {
+          setError('Please fill in all fields.');
+          return; 
+        }
 
         if(formData.password !== formData.confirmPassword){
             console.error('"Passwords do not match')
@@ -48,6 +61,7 @@ const SignupPage = () => {
             console.log('Signup Successful: ', response.data)
 
         }catch(error){
+            setError(error.response?.data?.message || 'An unexpected error occurred.')
             console.error('SignUp failed: ', error.response.data)
         }
 
@@ -151,6 +165,10 @@ const SignupPage = () => {
                 <a href="#" className="underline text-black">Terms of Use</a> and{' '}
                 <a href="#" className="underline text-black">Privacy Policy</a>.
                 </p>
+
+                {error && (
+                  <p className="text-red-500 text-sm text-left mb-4">{error}</p>
+                )}
 
                 <div>
                 <button
